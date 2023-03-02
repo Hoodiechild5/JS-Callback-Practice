@@ -5,28 +5,12 @@ function move(element) {
         element.style.left = left + 'px'
         element.style.bottom = bottom + 'px'
     }
-    function move(element) {
-        element.style.position = 'fixed'
-    
-        function moveToCoordinates(left, bottom) {
-            element.style.left = left + 'px'
-            element.style.bottom = bottom + 'px'
-        }
-    
-        function moveWithArrowKeys(left, bottom){
-           
-        }
-    
-        return {
-            to: moveToCoordinates,
-            withArrowKeys: moveWithArrowKeys
-        }
-    }
-    function moveWithArrowKeys(left, bottom, handleDirectionChange){
+
+    function moveWithArrowKeys(left, bottom, callback){
         let direction = null;
         let x = left;
         let y = bottom;
-    
+
         element.style.left = x + 'px'
         element.style.bottom = y + 'px'
         
@@ -64,19 +48,17 @@ function move(element) {
             if(e.key === 'ArrowDown'){
                 direction = 'south'
             }
-            handleDirectionChange(direction)
+            callback(direction)
         })
         
         document.addEventListener('keyup', function(e){
             direction = null
-            handleDirectionChange(direction)
+            callback(direction)
         })
     }
-   
-
-
 
     return {
-        to: moveToCoordinates
+        to: moveToCoordinates,
+        withArrowKeys: moveWithArrowKeys
     }
 }
